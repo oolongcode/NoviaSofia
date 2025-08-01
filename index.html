@@ -7,37 +7,40 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@500&family=Pacifico&display=swap');
 
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       background: radial-gradient(circle, #1a000a, #000);
       font-family: 'Dancing Script', cursive;
       color: white;
-      overflow: hidden;
+      overflow-x: hidden;
       min-height: 100vh;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     h1, h2, .subtitulo {
       text-align: center;
       font-family: 'Great Vibes', cursive;
       text-shadow: 0 0 15px #ff5e78;
+      max-width: 90vw;
     }
 
     h1 {
       color: #ff5e78;
-      font-size: 3.2em;
-      margin-top: 20px;
+      font-size: clamp(2em, 6vw, 3.5em);
+      margin-top: 2vh;
     }
 
     h2 {
       color: #ffb6c1;
-      font-size: 2.2em;
+      font-size: clamp(1.5em, 5vw, 2.5em);
       margin-top: -10px;
     }
 
     .subtitulo {
-      font-size: 1.8em;
+      font-size: clamp(1.2em, 4vw, 2em);
       margin-top: -5px;
       color: #ffc0cb;
       animation: mover 3s ease-in-out infinite;
@@ -51,20 +54,18 @@
 
     .mensaje {
       text-align: center;
-      font-size: 1.4em;
-      margin: 20px auto;
-      max-width: 90%;
+      font-size: clamp(1em, 3.5vw, 1.5em);
+      margin: 2vh auto;
+      max-width: 90vw;
       color: #ffc1e3;
       padding: 10px;
       z-index: 2;
-      font-family: 'Dancing Script', cursive;
     }
 
     .ramo {
       display: block;
-      margin: 20px auto 10px auto;
-      width: 280px;
-      max-width: 90%;
+      margin: 2vh auto 1vh auto;
+      width: min(280px, 80vw);
       filter: drop-shadow(0 0 25px pink) brightness(1.2);
       animation: flotarRamo 4s ease-in-out infinite;
     }
@@ -76,24 +77,25 @@
 
     .letraCancion {
       text-align: center;
-      font-size: 1.3em;
-      margin: 20px auto;
+      font-size: clamp(1em, 3.5vw, 1.4em);
+      margin: 2vh auto;
       color: #ffb6c1;
       font-style: italic;
       text-shadow: 0 0 5px #ff80ab;
       white-space: pre-wrap;
       min-height: 2em;
-      max-width: 90%;
+      max-width: 90vw;
     }
 
     .corazones {
-      position: absolute;
+      position: fixed;
       width: 100%;
       height: 100%;
       top: 0;
       left: 0;
       overflow: hidden;
       pointer-events: none;
+      z-index: 0;
     }
 
     .corazon, .fraseFlotante {
@@ -117,9 +119,9 @@
 
     #iniciarBtn {
       display: block;
-      margin: 30px auto 10px auto;
-      padding: 14px 30px;
-      font-size: 1.4em;
+      margin: 3vh auto 1vh auto;
+      padding: 1em 2em;
+      font-size: clamp(1em, 4vw, 1.5em);
       font-family: 'Pacifico', cursive;
       background: linear-gradient(135deg, #ff6fa1, #ff90bb);
       color: white;
@@ -186,7 +188,6 @@
       do {
         posX = Math.random() * 100;
       } while (posX > 40 && posX < 60);
-
       el.style.left = posX + 'vw';
       el.style.animationDuration = 4 + Math.random() * 4 + 's';
       el.style.fontSize = 16 + Math.random() * 14 + 'px';
