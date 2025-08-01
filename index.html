@@ -1,0 +1,272 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feliz Día de la Novia</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@500&family=Pacifico&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #1a000a, #000);
+      font-family: 'Dancing Script', cursive;
+      color: white;
+      overflow: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    h1, h2, .subtitulo {
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      text-shadow: 0 0 15px #ff5e78;
+    }
+
+    h1 {
+      color: #ff5e78;
+      font-size: 3.2em;
+      margin-top: 20px;
+    }
+
+    h2 {
+      color: #ffb6c1;
+      font-size: 2.2em;
+      margin-top: -10px;
+    }
+
+    .subtitulo {
+      font-size: 1.8em;
+      margin-top: -5px;
+      color: #ffc0cb;
+      animation: mover 3s ease-in-out infinite;
+      text-shadow: 0 0 10px #ff80ab;
+    }
+
+    @keyframes mover {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    .mensaje {
+      text-align: center;
+      font-size: 1.4em;
+      margin: 20px auto;
+      max-width: 90%;
+      color: #ffc1e3;
+      padding: 10px;
+      z-index: 2;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .ramo {
+      display: block;
+      margin: 20px auto 10px auto;
+      width: 280px;
+      max-width: 90%;
+      filter: drop-shadow(0 0 25px pink) brightness(1.2);
+      animation: flotarRamo 4s ease-in-out infinite;
+    }
+
+    @keyframes flotarRamo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .letraCancion {
+      text-align: center;
+      font-size: 1.3em;
+      margin: 20px auto;
+      color: #ffb6c1;
+      font-style: italic;
+      text-shadow: 0 0 5px #ff80ab;
+      white-space: pre-wrap;
+      min-height: 2em;
+      max-width: 90%;
+    }
+
+    .corazones {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .corazon, .fraseFlotante {
+      position: absolute;
+      color: #ff80ab;
+      font-size: 18px;
+      animation: flotar linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    #iniciarBtn {
+      display: block;
+      margin: 30px auto 10px auto;
+      padding: 14px 30px;
+      font-size: 1.4em;
+      font-family: 'Pacifico', cursive;
+      background: linear-gradient(135deg, #ff6fa1, #ff90bb);
+      color: white;
+      border: none;
+      border-radius: 18px;
+      box-shadow: 0 0 15px #ff80ab;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: brillo 2s ease-in-out infinite;
+    }
+
+    #iniciarBtn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #ff99c8;
+    }
+
+    @keyframes brillo {
+      0%, 100% {
+        box-shadow: 0 0 15px #ff80ab;
+      }
+      50% {
+        box-shadow: 0 0 25px #ffb6c1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="corazones" id="corazones"></div>
+  <h1>💞 ¡Feliz Día de la Novia! 💞</h1>
+  <h2>🌹 Mi Lokita 🌹</h2>
+  <div class="subtitulo">💗 Sofía 💗</div>
+  <img src="ramo.png" alt="Ramo de Rosas" class="ramo">
+  <div class="mensaje">
+    Dicen que todos estamos un poco locos, pero yo estoy loco por ti, mi lokita hermosa 💘🫶
+  </div>
+  <div class="letraCancion" id="letraCancion">🎶</div>
+  <button id="iniciarBtn">🎶 Reproducir 💕</button>
+  <audio id="musica">
+    <source src="Sofiaesmiamor.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
+
+  <script>
+    const corazones = document.getElementById('corazones');
+    const frases = [
+      "Te adoro 💘🥰",
+      "Mi amorcito 💖😘",
+      "Eres mi todo 🌍❤️",
+      "Siempre juntos 👩‍❤️‍👨💞",
+      "Te amo 😍💗",
+      "Mi lokita 🤪💕",
+      "Mi vida 🌹💓"
+    ];
+    const simbolos = ["❤", "💖", "💕", "💓", "💗", "💘"];
+
+    function crearElementoFlotante() {
+      const el = document.createElement('div');
+      const usarFrase = Math.random() < 0.5;
+      el.className = usarFrase ? 'fraseFlotante' : 'corazon';
+      el.innerText = usarFrase
+        ? frases[Math.floor(Math.random() * frases.length)]
+        : simbolos[Math.floor(Math.random() * simbolos.length)];
+      let posX;
+      do {
+        posX = Math.random() * 100;
+      } while (posX > 40 && posX < 60);
+
+      el.style.left = posX + 'vw';
+      el.style.animationDuration = 4 + Math.random() * 4 + 's';
+      el.style.fontSize = 16 + Math.random() * 14 + 'px';
+      corazones.appendChild(el);
+      setTimeout(() => el.remove(), 9000);
+    }
+
+    setInterval(crearElementoFlotante, 150);
+
+    const letra = [
+      "🎵 Sofía es mi amor 💕",
+      "💖 Solo con ella vivo la felicidad 😍🌈💫",
+      "💘 Yo sé que nunca a nadie más podría amar 💏💝",
+      "💞 Porque la quiero de verdad 💓🌹",
+      "🌹 Por eso Sofía, por favor 💌🙏",
+      "🤝 Dame tu mano y continuemos siempre así 💖👣",
+      "🎁 Después de todo, ¿Qué más te puedo pedir? 🎀💗",
+      "😊 Si soy feliz, muy feliz 😍🌟",
+      "💔 Si un día me faltas tú 😢💭",
+      "🙏 Que Dios me ayude a morir 💫💔",
+      "😢 Ya que no volveré a ser 💭🌧️",
+      "💫 En esta vida feliz 🌹❤️",
+      "💔 Sin ti, Sofía 😭💘"
+    ];
+
+    const tiempos = [
+      3.822,
+      6.446,
+      11.057,
+      15.926,
+      20.006,
+      22.821,
+      28.003,
+      32.994,
+      37.006,
+      41.997,
+      47.002,
+      51.095,
+      56.998
+    ];
+
+    const letraDiv = document.getElementById('letraCancion');
+    const musica = document.getElementById("musica");
+    const iniciarBtn = document.getElementById("iniciarBtn");
+
+    let actualIndex = -1;
+    let typingInterval;
+
+    function escribirLinea(texto) {
+      clearInterval(typingInterval);
+      letraDiv.textContent = "";
+      let i = 0;
+      typingInterval = setInterval(() => {
+        letraDiv.textContent += texto.charAt(i);
+        i++;
+        if (i >= texto.length) {
+          clearInterval(typingInterval);
+        }
+      }, 50);
+    }
+
+    function sincronizarLetras() {
+      const tiempoActual = musica.currentTime;
+      for (let i = tiempos.length - 1; i >= 0; i--) {
+        if (tiempoActual >= tiempos[i]) {
+          if (actualIndex !== i) {
+            actualIndex = i;
+            escribirLinea(letra[i]);
+          }
+          break;
+        }
+      }
+      requestAnimationFrame(sincronizarLetras);
+    }
+
+    iniciarBtn.addEventListener("click", () => {
+      musica.play();
+      iniciarBtn.style.display = "none";
+      requestAnimationFrame(sincronizarLetras);
+    });
+  </script>
+</body>
+</html>
